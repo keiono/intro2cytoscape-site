@@ -7,43 +7,54 @@ body {
   font-family: "helvetica neue";
 }
 
-p {
-  font-size: 18px;
-  line-height: 2.5em;
-  padding: 1em;
-}
-
 h2 {
   font-size: 32px;
   font-weight: 100;
+}
+
+h3 {
+  font-size: 24px;
+  font-weight: 100;
+  margin-left: 1em;
+  margin-top: 1em;
 }
 
 .dark {
   background-color: #f9f9f9;
 }
 
-.container-fluid {
+.black {
+  background-color: #000;
+}
 
+.container-fluid {
+  line-height: 1.8em;
   padding-top: 2em;
   padding-bottom: 2em;
 }
 
-.span6 {
-  border-top: 4px solid #aaaaaa;
-  padding: 1em;
+.section {
+  height: 400px;
+  border-radius: 10px;
+  background-color: #f5f5f5;
+  img {
+    margin-top: 2em;
+    margin-right: 2em;
+    margin-left: 1.5em;
+    margin-bottom: 2em;
+  }
 }
 
-#top {
+.top {
   margin: 45px auto 0 auto;
   width: 100%;
   vertical-align: center;
-  padding-top: 4em;
-  padding-bottom: 4em;
+  padding-top: 2.5em;
+  padding-bottom: 2.5em;
   margin-top: 40px;
   margin-bottom: 10px;
 }
 
 #intro {
-
 
 }
