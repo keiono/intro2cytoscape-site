@@ -59,8 +59,8 @@
                 <h2>ネットワークのインポート</h2>
 
                 <p class="lead">
-                    本章では、Excelなどのスプレッドシートやスクリプト言語などで作成されたテキストファイルから相互作用を
-                    Cytoscapeのネットワークとして読み込み、簡単な可視化を行う。
+                    本章では、Excelなどのスプレッドシートやテキストエディタ、スクリプト言語などで作成された
+                    テキストファイルから相互作用をCytoscapeのネットワークとして読み込み、簡単な可視化を行う。
                 </p>
             </div>
         </div>
@@ -73,20 +73,133 @@
             <div class="span9">
                 <p>
                     Cytoscapeはバイオインフォマティクス、複雑ネットワーク解析コミュニティで広く利用されている多くの
-                    ファイルフォーマットを標準でサポートしている。しかし、実験で得たデータは多くの場合、Microsoft社の
-                    Excelなどのスプレッドシートや、シンプルなテキストファイルに保存してある場合が多いと思われる。
+                    ファイルフォーマットを標準でサポートしている。しかし、実験で得たデータは多くの場合、まずMicrosoft社の
+                    Excelなどのスプレッドシートや、シンプルなテキストファイルに保存してある場合が多い。Cytoscapeは、そう言った
+                    生物学者が作製しやすいテーブル形式のデータを簡単に読み込むことができる。以下ではどのような形式でデータを用意す
+                    れば良いかを紹介する。
                 </p>
-                <h4>SIF (Simple Interaction Format)形式</h4>
-                Cytoscapeでは最も古くから利用されている形式で、<code>ソースノード名 相互作用のタイプ ターゲットノード名</code>
-                と言うシンプルなテキストで
+
+                <h4>Simple Interaction Format (SIF) 形式</h4>
+
+                <p>
+                    SIFはCytoscapeでは最も古くから利用されている形式で、テキストで表現されたエッジのリストとしてネットワークを
+                    記録する。<code>ソースノード名　相互作用のタイプ ターゲットノード名</code>(スペース区切り)と言う形で一つの
+                    エッジを表し、テキストファイルの一行が一つのエッジに対応する。この形式で保存されたデータは、<code>.sif</code>
+                    と言う拡張子を追加することにより、Cytoscapeは自動的に読み込む。
+                </p>
             </div>
             <div class="span3">
                 <img src="images/icons/document.png">
             </div>
         </div>
+        <div class="row-fluid">
+            <div class="span3">
+                <h5>SIFファイルの例</h5>
+                <pre>
+    YKR026C pp YGL122C
+    YGR218W pp YGL097W
+    YGL097W pp YOR204W
+    YLR249W pp YPR080W
+    YLR249W pp YBR118W
+    YLR293C pp YGL097W
+    YMR146C pp YDR429C
+    YDR429C pp YFL017C
+    YPR080W pp YAL003W
+    YBR118W pp YAL003W
+                </pre>
+            </div>
+            <div class="span3">
+                <h5>自由形式の例</h5>
+
+                <pre>
+    YKR026C,YGL122C,pp
+    YGR218W,YGL097W,pp
+    YGL097W,YOR204W,pp
+    YLR249W,YPR080W,pp
+    YLR249W,YBR118W,pp
+    YLR293C,YGL097W,pp
+    YMR146C,YDR429C,pp
+    YDR429C,YFL017C,pp
+    YPR080W,YAL003W,pp
+    YBR118W,YAL003W,pp
+                </pre>
+            </div>
+            <div class="span6">
+                <h4>テーブル形式</h4>
+
+                <p>
+                    特定のフォーマットを持たないテーブル形式のデータは、ほぼどのようなものでも読み込める。テーブルの一行が一エッジに
+                    対応するのため、最低限、ソースノード名とターゲットノード名を表す２つの列が存在すればネットワークとして読み込まれるが、
+                    ユーザーがそれぞれどの列が何を表すかを指定する必要がある（後述）。ファイルはCSV, タブ区切り、Excel方式等が使える。
+                </p>
+            </div>
+        </div>
     </div>
 </div>
 
+
+<div class="container-fluid dark">
+    <div class="container">
+        <div class="row-fluid">
+            <div class="span12">
+                <h4>ネットワークファイルの読み込み</h4>
+            </div>
+        </div>
+
+        <div class="row-fluid">
+            <div class="span4">
+                <h5>SIF形式の場合</h5>
+                <h6><a href="data/galFiltered.sif">サンプルファイル</a></h6>
+                <p>
+                    SIF形式のファイルは、メニューからファイルを指定するだけで自動的に読み込まれる。
+                </p>
+                <ol>
+                    <li>メニューからFile → Import → Network → File...でファイルを選ぶ</li>
+                    <li>選択を押すと自動的にネットワークが読み込まれる</li>
+                </ol>
+
+                <h5>自由形式テーブルの場合</h5>
+                <h6><a href="data/galFiltered.xls">サンプルファイル (Excel形式)</a></h6>
+                <p>
+                    その他のテーブル形式のファイルの場合、カラムが何を表すかを手動で指定する必要がある。
+                </p>
+                <ol>
+                    <li>メニューからFile → Import → Network → File...でファイルを選ぶ</li>
+                    <li>図のような画面が表示される</li>
+                    <li>ソース、ターゲット、相互作用のタイプがどの列に対応するのかをボックスから選ぶ</li>
+                    <li>OKを押す</li>
+                    <li>ネットワークが読み込まれ、自動的に描画される</li>
+                </ol>
+            </div>
+            <div class="span8">
+                <img src="images/import-network-table.png" class="img-polaroid">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="container">
+        <div class="row-fluid">
+            <div class="span12">
+                <h4>自動レイアウト</h4>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span8">
+                <img src="images/layout.png">
+            </div>
+            <div class="span4">
+                <p>
+                    ネットワークを読み込んだ直後は、ノードはグリッド状に配置される。これを見やすい形に配置するには、
+                    Apply Preferred Layoutアイコンをクリックする。しかし、これは数あるCytoscape標準搭載の自動レイアウト
+                    アルゴリズムの一つに過ぎないため、Layoutメニュー以下にある様々な自動レイアウトを試してみて欲しい。
+                </p>
+            </div>
+        </div>
+
+    </div>
+</div>
 <!--[if lt IE 7]>
 <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to
